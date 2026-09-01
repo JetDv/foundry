@@ -29,8 +29,10 @@ Non-negotiable, regardless of form:
 - one `CONTEXT.md` per working folder, with Inputs / Process / Outputs / Human check
 - `_shared/` for anything stable across runs
 - `_templates/` if any unit of work repeats
-- `README.md` — for humans and for GitHub; it is not an entry file and agents are not routed to it
+- `README.md` — for humans and for GitHub; it is not an entry file and agents are not routed to it. It carries the ICM attribution line: method is Van Clief & McDermott, arXiv:2603.16021, MIT.
 - `.gitignore`
+- `LICENSE` — MIT unless the brief says otherwise. ICM is MIT-licensed and these workspaces are derivative of it; shipping without a licence file is an omission, not a neutral default.
+- `check-paths.py`, copied in from Foundry's `stages/04_walk-test/references/`. An emitted workspace must be able to re-check its own paths after someone renumbers a stage, without needing Foundry present. This is the one script Foundry duplicates on purpose — the alternative is a workspace that silently rots the first time it is edited.
 
 ## What never gets created
 
@@ -43,6 +45,8 @@ Non-negotiable, regardless of form:
 ## Emission
 
 - `03_scaffold` writes the new workspace to the **destination path named in the brief**. Foundry does not host what it builds.
+- **Default destination: `C:\Users\OmegaSheb\dev\{workspace-name}`.** Used when a brief names a workspace but no path. Emitted workspaces sit beside other code, each its own repo.
+- **No remote is created.** `03_scaffold` runs `git init` and one commit, and stops there. Creating a GitHub remote is a human decision made after the walk test passes — a workspace that failed its walk test should not already have a URL.
 - The destination must be empty or must not exist. If it holds files, stop and hand it to the human — that is a Restructure job, which Foundry does not do.
 - Every emitted workspace is initialized as its own git repo with one commit. It is a separate history from Foundry's.
 - After the walk test passes, file a card in `library/` from `_templates/library-record.md`. The card, never a copy of the tree.
@@ -51,9 +55,24 @@ Non-negotiable, regardless of form:
 
 Claude Code, Cowork, and any harness that reads `AGENTS.md`. The convention above is chosen so that a harness nobody has heard of yet costs one pointer file, not a migration.
 
-## Voice and defaults — [unset]
+## When a workspace is warranted
 
-Run `setup/questionnaire.md`. Until then, emitted contracts use plain declarative English, second person for instructions to the agent, and no filler.
+**Three.** A process must have run three times before it gets a workspace instead of a saved prompt or a skill.
+
+This is the same number ICM uses for cross-team patterns — one occurrence is a gripe, three independent occurrences are structure — and one threshold is easier to hold than two. `01_interview` asks the count and records it in the brief; a brief reporting fewer than three is not a failed interview, it is a correct one, and the right output is a saved prompt plus a note to revisit.
+
+The ladder: chat -> saved prompt or skill -> folders plus one agent. Only climb when the rung below is genuinely automated and repeating.
+
+## Contract voice
+
+Plain declarative English, second person to the agent, no filler. Beyond that, two habits are deliberate and emitted contracts keep them:
+
+- **A "Do NOT load" line carries its reason, in one sentence.** Not `Do NOT load: _shared/forms.md` but that plus *why* — "choosing a form in this stage is the single most common way a run goes wrong." A prohibition without a reason gets edited away by the first person who doesn't know what it was protecting. One sentence, never a paragraph.
+- **A rule may carry an aphorism when the aphorism is the memorable half.** "A blank is information; an invented answer is damage." "Correction is cheapest at the earliest gate." These survive being half-remembered, which is how rules actually get applied. One per contract at most — past that it reads as a writer enjoying themselves, and the reader starts skimming.
+
+Both habits exist for the same reason: a contract is read by someone who was not in the room when it was written. Write for that person.
+
+The model for every emitted contract is `stages/01_interview/CONTEXT.md`.
 
 ## Overrides log
 

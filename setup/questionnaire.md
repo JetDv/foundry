@@ -2,6 +2,8 @@
 
 These answers go into `_shared/conventions.md`, into the sections marked **[unset]**. Every run reads them. **No run should ever ask them again** — if a run finds itself asking, the answer never got written down, and writing it down is part of finishing.
 
+**Answered 2026-09-01. All five are written into `_shared/conventions.md`.** Re-run only if a convention stops fitting.
+
 Answer what you know. A blank stays blank; a plausible guess written into the factory propagates into every workspace Foundry ever emits.
 
 ---
