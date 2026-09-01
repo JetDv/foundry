@@ -61,4 +61,4 @@ When a brief overrides a convention, record it here in one line: date, workspace
 
 | Date | Workspace | Override | Why |
 |---|---|---|---|
-| — | — | — | — |
+| 2026-09-01 | Foundry (itself) | Shipped despite failing its own over-structure check | The cold walk returned "this should have been a skill": ~9.5k tokens total, no long-running state, no branching, and zero runs in `library/`. Kept anyway, deliberately. The claim to test is that the `01_interview` and `02_blueprint` gates earn their keep against a real interview — which is not knowable by argument. **Revisit when `library/` holds two cards.** If neither card's walk report shows a gate that changed the outcome, collapse `stages/` into a skill and keep only `_shared/`, `_templates/`, and `library/`. |
